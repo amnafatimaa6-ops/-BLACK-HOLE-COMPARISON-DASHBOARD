@@ -1,70 +1,81 @@
-import numpy as np
-import plotly.graph_objects as go
+from simulator import BlackHoleRenderer
+
+renderer = BlackHoleRenderer()
 
 
 def create():
 
-    fig = go.Figure()
+    fig = renderer.create_figure("Schwarzschild Black Hole")
 
-    theta = np.linspace(0,2*np.pi,400)
+    # -----------------------------
+    # Background
+    # -----------------------------
 
+    renderer.add_starfield(fig)
+
+    # -----------------------------
     # Event Horizon
-    fig.add_trace(
+    # -----------------------------
 
-        go.Scatter(
-            x=np.cos(theta),
-            y=np.sin(theta),
-            fill="toself",
-            mode="lines",
-            line=dict(color="black",width=3),
-            hoverinfo="skip"
-        )
-    )
+    renderer.add_event_horizon(fig)
 
-
+    # -----------------------------
     # Photon Ring
+    # -----------------------------
 
-    r=1.4
+    renderer.add_photon_ring(fig)
 
-    fig.add_trace(
+    # -----------------------------
+    # Orbiting Matter
+    # -----------------------------
 
-        go.Scatter(
-            x=r*np.cos(theta),
-            y=r*np.sin(theta),
-            mode="lines",
-            line=dict(color="gold",dash="dot")
+    renderer.add_particles(
+        fig,
+        number=220
+    )
+
+    # -----------------------------
+    # Labels
+    # -----------------------------
+
+    fig.add_annotation(
+
+        x=0,
+        y=0,
+
+        text="Event Horizon",
+
+        showarrow=False,
+
+        font=dict(
+            color="white",
+            size=11
         )
+
     )
 
+    fig.add_annotation(
 
-    # Orbiting particles
+        x=1.6,
+        y=1.45,
 
-    r=3
+        text="Photon Ring",
 
-    angles=np.linspace(0,2*np.pi,120)
+        showarrow=True,
 
-    fig.add_trace(
+        arrowhead=2,
 
-        go.Scatter(
-            x=r*np.cos(angles),
-            y=r*np.sin(angles),
-
-            mode="markers",
-
-            marker=dict(
-                size=4,
-                color="white"
-            )
+        font=dict(
+            color="gold",
+            size=11
         )
+
     )
 
-    fig.update_layout(
-        template="plotly_dark",
-        width=320,
-        height=320,
-        margin=dict(l=0,r=0,t=0,b=0),
-        xaxis=dict(visible=False,range=[-5,5]),
-        yaxis=dict(visible=False,range=[-5,5],scaleanchor="x")
-    )
+    # -----------------------------
+    # Legend
+    # -----------------------------
+
+    renderer.add_legend(fig)
 
     return fig
