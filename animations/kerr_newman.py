@@ -9,53 +9,25 @@ def create():
 
     fig = renderer.create_figure("Kerr-Newman Black Hole")
 
-    # ------------------------------------------
-    # Background
-    # ------------------------------------------
-
     renderer.add_starfield(fig)
-
-    # ------------------------------------------
-    # Event Horizon
-    # ------------------------------------------
 
     renderer.add_event_horizon(fig)
 
-    # ------------------------------------------
-    # Photon Ring
-    # ------------------------------------------
-
     renderer.add_photon_ring(fig)
-
-    # ------------------------------------------
-    # Accretion Disk
-    # ------------------------------------------
 
     renderer.add_disk(fig)
 
-    # ------------------------------------------
-    # Ergosphere
-    # ------------------------------------------
-
     renderer.add_ergosphere(fig)
-
-    # ------------------------------------------
-    # Electric Field
-    # ------------------------------------------
 
     renderer.add_electric_field(fig)
 
-    # ------------------------------------------
-    # Charged Orbiting Particles
-    # ------------------------------------------
-
-    angles = np.random.uniform(0, 2*np.pi, 280)
-    radius = np.random.uniform(2.2, 4.8, 280)
+    angles = np.random.uniform(0, 2*np.pi, 300)
+    radius = np.random.uniform(2.2, 4.8, 300)
 
     colors = np.where(
-        np.random.rand(280) > 0.5,
-        "cyan",
-        "white"
+        np.random.rand(300) > .5,
+        "white",
+        "cyan"
     )
 
     fig.add_trace(
@@ -74,7 +46,7 @@ def create():
 
                 color=colors,
 
-                opacity=0.9
+                opacity=.9
 
             ),
 
@@ -84,13 +56,10 @@ def create():
 
     )
 
-    # ------------------------------------------
-    # Frame Dragging Arrows
-    # ------------------------------------------
+    # Frame dragging
+    frame_angles = np.linspace(0, 2*np.pi, 14)
 
-    angles = np.linspace(0, 2*np.pi, 14)
-
-    for a in angles:
+    for a in frame_angles:
 
         x = 2.7*np.cos(a)
         y = 2.0*np.sin(a)
@@ -120,16 +89,12 @@ def create():
 
         )
 
-    # ------------------------------------------
-    # Labels
-    # ------------------------------------------
-
     fig.add_annotation(
         x=0,
         y=0,
         text="Event Horizon",
         showarrow=False,
-        font=dict(color="white", size=11)
+        font=dict(color="white")
     )
 
     fig.add_annotation(
@@ -138,7 +103,7 @@ def create():
         text="Accretion Disk",
         showarrow=True,
         arrowhead=2,
-        font=dict(color="cyan", size=11)
+        font=dict(color="cyan")
     )
 
     fig.add_annotation(
@@ -147,32 +112,23 @@ def create():
         text="Ergosphere",
         showarrow=True,
         arrowhead=2,
-        font=dict(color="orange", size=11)
+        font=dict(color="orange")
     )
 
     fig.add_annotation(
-        x=4.3,
-        y=2.3,
+        x=4.2,
+        y=2.2,
         text="Electric Field",
         showarrow=True,
         arrowhead=2,
-        font=dict(color="deepskyblue", size=11)
+        font=dict(color="deepskyblue")
     )
 
-    # ------------------------------------------
-    # Legend
-    # ------------------------------------------
-
     renderer.add_legend(
-
         fig,
-
         disk=True,
-
         ergosphere=True,
-
         electric=True
-
     )
 
     return fig
