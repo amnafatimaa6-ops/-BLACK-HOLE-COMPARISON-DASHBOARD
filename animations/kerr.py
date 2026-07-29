@@ -1,70 +1,156 @@
+from simulator import BlackHoleRenderer
 import numpy as np
 import plotly.graph_objects as go
+
+renderer = BlackHoleRenderer()
 
 
 def create():
 
-    fig=go.Figure()
+    fig = renderer.create_figure("Kerr Black Hole")
 
-    theta=np.linspace(0,2*np.pi,400)
+    # ------------------------------------------------
+    # Background
+    # ------------------------------------------------
 
-    # Horizon
+    renderer.add_starfield(fig)
 
-    fig.add_trace(
+    # ------------------------------------------------
+    # Event Horizon
+    # ------------------------------------------------
 
-        go.Scatter(
-            x=np.cos(theta),
-            y=np.sin(theta),
-            fill="toself",
-            mode="lines",
-            line=dict(color="black",width=3)
-        )
-    )
+    renderer.add_event_horizon(fig)
 
-    # Ergosphere
+    # ------------------------------------------------
+    # Photon Ring
+    # ------------------------------------------------
 
-    fig.add_trace(
+    renderer.add_photon_ring(fig)
 
-        go.Scatter(
-
-            x=1.7*np.cos(theta),
-            y=1.3*np.sin(theta),
-
-            mode="lines",
-
-            line=dict(color="orange")
-        )
-    )
-
+    # ------------------------------------------------
     # Accretion Disk
+    # ------------------------------------------------
 
-    disk=np.linspace(0,2*np.pi,250)
+    renderer.add_disk(fig)
 
-    fig.add_trace(
+    # ------------------------------------------------
+    # Ergosphere
+    # ------------------------------------------------
 
-        go.Scatter(
+    renderer.add_ergosphere(fig)
 
-            x=3*np.cos(disk),
-            y=.8*np.sin(disk),
+    # ------------------------------------------------
+    # Orbiting Matter
+    # ------------------------------------------------
 
-            mode="lines",
-
-            line=dict(color="cyan")
-        )
+    renderer.add_particles(
+        fig,
+        number=260
     )
 
-    fig.update_layout(
+    # ------------------------------------------------
+    # Frame Dragging Arrows
+    # ------------------------------------------------
 
-        template="plotly_dark",
+    angles = np.linspace(0, 2*np.pi, 12)
 
-        width=320,
-        height=320,
+    for a in angles:
 
-        margin=dict(l=0,r=0,t=0,b=0),
+        x = 2.6*np.cos(a)
+        y = 2.1*np.sin(a)
 
-        xaxis=dict(range=[-5,5],visible=False),
+        dx = -0.35*np.sin(a)
+        dy = 0.35*np.cos(a)
 
-        yaxis=dict(range=[-5,5],visible=False,scaleanchor="x")
+        fig.add_annotation(
+
+            x=x+dx,
+            y=y+dy,
+
+            ax=x,
+            ay=y,
+
+            xref="x",
+            yref="y",
+
+            axref="x",
+            ayref="y",
+
+            showarrow=True,
+
+            arrowhead=3,
+
+            arrowcolor="lime"
+
+        )
+
+    # ------------------------------------------------
+    # Labels
+    # ------------------------------------------------
+
+    fig.add_annotation(
+
+        x=0,
+        y=0,
+
+        text="Event Horizon",
+
+        showarrow=False,
+
+        font=dict(
+            color="white",
+            size=11
+        )
+
+    )
+
+    fig.add_annotation(
+
+        x=2.9,
+        y=0,
+
+        text="Accretion Disk",
+
+        showarrow=True,
+
+        arrowhead=2,
+
+        font=dict(
+            color="cyan",
+            size=11
+        )
+
+    )
+
+    fig.add_annotation(
+
+        x=0,
+        y=1.9,
+
+        text="Ergosphere",
+
+        showarrow=True,
+
+        arrowhead=2,
+
+        font=dict(
+            color="orange",
+            size=11
+        )
+
+    )
+
+    # ------------------------------------------------
+    # Legend
+    # ------------------------------------------------
+
+    renderer.add_legend(
+
+        fig,
+
+        disk=True,
+
+        ergosphere=True
 
     )
 
