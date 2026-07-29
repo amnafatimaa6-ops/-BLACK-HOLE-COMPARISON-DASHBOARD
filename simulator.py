@@ -20,8 +20,8 @@ class BlackHoleRenderer:
 
             template="plotly_dark",
 
-            paper_bgcolor="black",
-            plot_bgcolor="black",
+           paper_bgcolor="#010409",
+           plot_bgcolor="#010409",
 
             width=350,
             height=350,
