@@ -1,96 +1,177 @@
+from simulator import BlackHoleRenderer
 import numpy as np
 import plotly.graph_objects as go
+
+renderer = BlackHoleRenderer()
 
 
 def create():
 
-    fig=go.Figure()
+    fig = renderer.create_figure("Kerr-Newman Black Hole")
 
-    theta=np.linspace(0,2*np.pi,400)
+    # ------------------------------------------
+    # Background
+    # ------------------------------------------
 
-    fig.add_trace(
+    renderer.add_starfield(fig)
 
-        go.Scatter(
+    # ------------------------------------------
+    # Event Horizon
+    # ------------------------------------------
 
-            x=np.cos(theta),
+    renderer.add_event_horizon(fig)
 
-            y=np.sin(theta),
+    # ------------------------------------------
+    # Photon Ring
+    # ------------------------------------------
 
-            fill="toself",
+    renderer.add_photon_ring(fig)
 
-            mode="lines",
+    # ------------------------------------------
+    # Accretion Disk
+    # ------------------------------------------
 
-            line=dict(color="black",width=3)
+    renderer.add_disk(fig)
 
-        )
-    )
-
+    # ------------------------------------------
     # Ergosphere
+    # ------------------------------------------
+
+    renderer.add_ergosphere(fig)
+
+    # ------------------------------------------
+    # Electric Field
+    # ------------------------------------------
+
+    renderer.add_electric_field(fig)
+
+    # ------------------------------------------
+    # Charged Orbiting Particles
+    # ------------------------------------------
+
+    angles = np.random.uniform(0, 2*np.pi, 280)
+    radius = np.random.uniform(2.2, 4.8, 280)
+
+    colors = np.where(
+        np.random.rand(280) > 0.5,
+        "cyan",
+        "white"
+    )
 
     fig.add_trace(
 
         go.Scatter(
 
-            x=1.7*np.cos(theta),
+            x=radius*np.cos(angles),
 
-            y=1.3*np.sin(theta),
+            y=radius*np.sin(angles),
 
-            mode="lines",
+            mode="markers",
 
-            line=dict(color="orange")
+            marker=dict(
+
+                size=4,
+
+                color=colors,
+
+                opacity=0.9
+
+            ),
+
+            hoverinfo="skip"
 
         )
+
     )
 
-    # Disk
+    # ------------------------------------------
+    # Frame Dragging Arrows
+    # ------------------------------------------
 
-    fig.add_trace(
+    angles = np.linspace(0, 2*np.pi, 14)
 
-        go.Scatter(
+    for a in angles:
 
-            x=3*np.cos(theta),
+        x = 2.7*np.cos(a)
+        y = 2.0*np.sin(a)
 
-            y=.8*np.sin(theta),
+        dx = -0.35*np.sin(a)
+        dy = 0.35*np.cos(a)
 
-            mode="lines",
+        fig.add_annotation(
 
-            line=dict(color="cyan")
+            x=x+dx,
+            y=y+dy,
+
+            ax=x,
+            ay=y,
+
+            xref="x",
+            yref="y",
+
+            axref="x",
+            ayref="y",
+
+            showarrow=True,
+
+            arrowhead=3,
+
+            arrowcolor="lime"
 
         )
+
+    # ------------------------------------------
+    # Labels
+    # ------------------------------------------
+
+    fig.add_annotation(
+        x=0,
+        y=0,
+        text="Event Horizon",
+        showarrow=False,
+        font=dict(color="white", size=11)
     )
 
-    # Electric field
+    fig.add_annotation(
+        x=2.9,
+        y=0,
+        text="Accretion Disk",
+        showarrow=True,
+        arrowhead=2,
+        font=dict(color="cyan", size=11)
+    )
 
-    for a in np.linspace(0,2*np.pi,18):
+    fig.add_annotation(
+        x=0,
+        y=1.9,
+        text="Ergosphere",
+        showarrow=True,
+        arrowhead=2,
+        font=dict(color="orange", size=11)
+    )
 
-        fig.add_trace(
+    fig.add_annotation(
+        x=4.3,
+        y=2.3,
+        text="Electric Field",
+        showarrow=True,
+        arrowhead=2,
+        font=dict(color="deepskyblue", size=11)
+    )
 
-            go.Scatter(
+    # ------------------------------------------
+    # Legend
+    # ------------------------------------------
 
-                x=[np.cos(a),4*np.cos(a)],
+    renderer.add_legend(
 
-                y=[np.sin(a),4*np.sin(a)],
+        fig,
 
-                mode="lines",
+        disk=True,
 
-                line=dict(color="deepskyblue",dash="dot")
+        ergosphere=True,
 
-            )
-        )
-
-    fig.update_layout(
-
-        template="plotly_dark",
-
-        width=320,
-
-        height=320,
-
-        margin=dict(l=0,r=0,t=0,b=0),
-
-        xaxis=dict(range=[-5,5],visible=False),
-
-        yaxis=dict(range=[-5,5],visible=False,scaleanchor="x")
+        electric=True
 
     )
 
