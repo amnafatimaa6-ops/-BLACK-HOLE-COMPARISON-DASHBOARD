@@ -1,0 +1,37 @@
+{
+  "Schwarzschild": {
+    "rotation": "No",
+    "charge": "No",
+    "event_horizon": "Yes",
+    "ergosphere": "No",
+    "singularity": "Point",
+    "about": "The Schwarzschild black hole is the simplest exact solution of Einstein's field equations. It has mass only and neither rotates nor carries electric charge."
+  },
+
+  "Kerr": {
+    "rotation": "Yes",
+    "charge": "No",
+    "event_horizon": "Yes",
+    "ergosphere": "Yes",
+    "singularity": "Ring",
+    "about": "The Kerr solution describes a rotating black hole. Rotation drags spacetime around the black hole, producing an ergosphere."
+  },
+
+  "Reissner-Nordström": {
+    "rotation": "No",
+    "charge": "Yes",
+    "event_horizon": "Yes",
+    "ergosphere": "No",
+    "singularity": "Point",
+    "about": "A charged, non-rotating black hole described by the Einstein-Maxwell equations."
+  },
+
+  "Kerr-Newman": {
+    "rotation": "Yes",
+    "charge": "Yes",
+    "event_horizon": "Yes",
+    "ergosphere": "Yes",
+    "singularity": "Ring",
+    "about": "The most general stationary black hole solution, possessing mass, angular momentum, and electric charge."
+  }
+}
