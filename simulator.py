@@ -1,191 +1,55 @@
 import numpy as np
-import plotly.graph_objects as go
 
+class ParticleSimulator:
 
-# ------------------------------------
-# Shared layout
-# ------------------------------------
+    def __init__(self, n_particles=300):
 
-def base_layout(fig):
+        self.n = n_particles
 
-    fig.update_layout(
+        self.r = np.random.uniform(2.5,5,self.n)
 
-        template="plotly_dark",
-
-        width=300,
-        height=300,
-
-        margin=dict(
-            l=0,
-            r=0,
-            t=0,
-            b=0
-        ),
-
-        xaxis=dict(
-            visible=False,
-            range=[-6,6]
-        ),
-
-        yaxis=dict(
-            visible=False,
-            range=[-6,6],
-            scaleanchor="x"
-        ),
-
-        showlegend=False
-
-    )
-
-    return fig
-
-
-# ------------------------------------
-# Event horizon
-# ------------------------------------
-
-def draw_horizon(fig,radius=1):
-
-    theta=np.linspace(0,2*np.pi,300)
-
-    x=radius*np.cos(theta)
-    y=radius*np.sin(theta)
-
-    fig.add_trace(
-
-        go.Scatter(
-
-            x=x,
-            y=y,
-
-            mode="lines",
-
-            fill="toself",
-
-            line=dict(width=2),
-
-            name="Event Horizon"
-
+        self.theta = np.random.uniform(
+            0,
+            2*np.pi,
+            self.n
         )
 
-    )
+    def schwarzschild(self):
 
+        self.theta += 0.008/self.r
 
-# ------------------------------------
-# Accretion disk
-# ------------------------------------
+        x=self.r*np.cos(self.theta)
+        y=self.r*np.sin(self.theta)
 
-def draw_disk(fig,r1=1.5,r2=2.5):
+        return x,y
 
-    theta=np.linspace(0,2*np.pi,400)
+    def kerr(self):
 
-    x1=r1*np.cos(theta)
-    y1=r1*np.sin(theta)
+        self.theta += 0.025/self.r
 
-    x2=r2*np.cos(theta[::-1])
-    y2=r2*np.sin(theta[::-1])
+        x=self.r*np.cos(self.theta)
+        y=self.r*np.sin(self.theta)
 
-    fig.add_trace(
+        return x,y
 
-        go.Scatter(
+    def reissner(self):
 
-            x=np.concatenate([x1,x2]),
-            y=np.concatenate([y1,y2]),
+        pulse=.12*np.sin(self.theta*4)
 
-            fill="toself",
+        x=(self.r+pulse)*np.cos(self.theta)
+        y=(self.r+pulse)*np.sin(self.theta)
 
-            mode="lines",
+        self.theta+=0.01
 
-            opacity=0.4,
+        return x,y
 
-            line=dict(width=0)
+    def kerr_newman(self):
 
-        )
+        pulse=.18*np.sin(self.theta*5)
 
-    )
+        self.theta+=0.03/self.r
 
+        x=(self.r+pulse)*np.cos(self.theta)
+        y=(self.r+pulse)*np.sin(self.theta)
 
-# ------------------------------------
-# Electric field
-# ------------------------------------
-
-def draw_field(fig):
-
-    angles=np.linspace(0,2*np.pi,18)
-
-    for a in angles:
-
-        fig.add_trace(
-
-            go.Scatter(
-
-                x=[1*np.cos(a),4*np.cos(a)],
-                y=[1*np.sin(a),4*np.sin(a)],
-
-                mode="lines",
-
-                line=dict(width=1,dash="dot")
-
-            )
-
-        )
-
-
-# ------------------------------------
-# Schwarzschild
-# ------------------------------------
-
-def schwarzschild_sim():
-
-    fig=go.Figure()
-
-    draw_horizon(fig)
-
-    return base_layout(fig)
-
-
-# ------------------------------------
-# Kerr
-# ------------------------------------
-
-def kerr_sim():
-
-    fig=go.Figure()
-
-    draw_horizon(fig)
-
-    draw_disk(fig)
-
-    return base_layout(fig)
-
-
-# ------------------------------------
-# Reissner-Nordström
-# ------------------------------------
-
-def reissner_sim():
-
-    fig=go.Figure()
-
-    draw_horizon(fig)
-
-    draw_field(fig)
-
-    return base_layout(fig)
-
-
-# ------------------------------------
-# Kerr-Newman
-# ------------------------------------
-
-def kerr_newman_sim():
-
-    fig=go.Figure()
-
-    draw_horizon(fig)
-
-    draw_disk(fig)
-
-    draw_field(fig)
-
-    return base_layout(fig)
+        return x,y
