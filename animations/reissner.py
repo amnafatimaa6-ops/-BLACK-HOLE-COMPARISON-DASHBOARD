@@ -1,62 +1,136 @@
+from simulator import BlackHoleRenderer
 import numpy as np
 import plotly.graph_objects as go
+
+renderer = BlackHoleRenderer()
 
 
 def create():
 
-    fig=go.Figure()
+    fig = renderer.create_figure("Reissner–Nordström Black Hole")
 
-    theta=np.linspace(0,2*np.pi,400)
+    # ------------------------------------------
+    # Background Stars
+    # ------------------------------------------
+
+    renderer.add_starfield(fig)
+
+    # ------------------------------------------
+    # Event Horizon
+    # ------------------------------------------
+
+    renderer.add_event_horizon(fig)
+
+    # ------------------------------------------
+    # Photon Ring
+    # ------------------------------------------
+
+    renderer.add_photon_ring(fig)
+
+    # ------------------------------------------
+    # Electric Field
+    # ------------------------------------------
+
+    renderer.add_electric_field(fig)
+
+    # ------------------------------------------
+    # Charged Particles
+    # ------------------------------------------
+
+    angles = np.random.uniform(0, 2*np.pi, 220)
+    radius = np.random.uniform(2.0, 4.8, 220)
 
     fig.add_trace(
 
         go.Scatter(
 
-            x=np.cos(theta),
+            x=radius*np.cos(angles),
 
-            y=np.sin(theta),
+            y=radius*np.sin(angles),
 
-            fill="toself",
+            mode="markers",
 
-            mode="lines",
+            marker=dict(
 
-            line=dict(color="black",width=3)
+                size=4,
+
+                color="deepskyblue",
+
+                opacity=0.9
+
+            ),
+
+            hoverinfo="skip"
 
         )
+
     )
 
-    # Electric Field
+    # ------------------------------------------
+    # Labels
+    # ------------------------------------------
 
-    for a in np.linspace(0,2*np.pi,20):
+    fig.add_annotation(
 
-        fig.add_trace(
+        x=0,
+        y=0,
 
-            go.Scatter(
+        text="Event Horizon",
 
-                x=[np.cos(a),4*np.cos(a)],
+        showarrow=False,
 
-                y=[np.sin(a),4*np.sin(a)],
-
-                mode="lines",
-
-                line=dict(color="deepskyblue",dash="dot")
-
-            )
+        font=dict(
+            color="white",
+            size=11
         )
 
-    fig.update_layout(
+    )
 
-        template="plotly_dark",
+    fig.add_annotation(
 
-        width=320,
+        x=4.2,
+        y=2.2,
 
-        height=320,
+        text="Electric Field",
 
-        margin=dict(l=0,r=0,t=0,b=0),
+        showarrow=True,
 
-        xaxis=dict(range=[-5,5],visible=False),
+        arrowhead=2,
 
-        yaxis=dict(range=[-5,5],visible=False,scaleanchor="x")
+        font=dict(
+            color="deepskyblue",
+            size=11
+        )
+
+    )
+
+    fig.add_annotation(
+
+        x=1.7,
+        y=1.5,
+
+        text="Photon Ring",
+
+        showarrow=True,
+
+        arrowhead=2,
+
+        font=dict(
+            color="gold",
+            size=11
+        )
+
+    )
+
+    # ------------------------------------------
+    # Legend
+    # ------------------------------------------
+
+    renderer.add_legend(
+
+        fig,
+
+        electric=True
 
     )
 
