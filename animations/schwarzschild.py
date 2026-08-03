@@ -1,17 +1,34 @@
 from simulator import BlackHoleRenderer
 
-renderer = BlackHoleRenderer()
+
+def create(
+    mass=10,
+    spin=0,
+    charge=0,
+    particles=250,
+    speed=5
+):
+
+    renderer = BlackHoleRenderer(
+        mass=mass,
+        spin=spin,
+        charge=charge,
+        particles=particles,
+        speed=speed
+    )
 
 
-def create():
+    fig = renderer.create_figure(
+        "Schwarzschild Black Hole"
+    )
 
-    fig = renderer.create_figure("Schwarzschild Black Hole")
 
     # -----------------------------
-    # Background
+    # Space Background
     # -----------------------------
 
     renderer.add_starfield(fig)
+
 
     # -----------------------------
     # Event Horizon
@@ -19,20 +36,20 @@ def create():
 
     renderer.add_event_horizon(fig)
 
+
     # -----------------------------
     # Photon Ring
     # -----------------------------
 
     renderer.add_photon_ring(fig)
 
+
     # -----------------------------
-    # Orbiting Matter
+    # Matter Around Black Hole
     # -----------------------------
 
-    renderer.add_particles(
-        fig,
-        number=220
-    )
+    renderer.add_particles(fig)
+
 
     # -----------------------------
     # Labels
@@ -49,15 +66,16 @@ def create():
 
         font=dict(
             color="white",
-            size=11
+            size=12
         )
 
     )
 
+
     fig.add_annotation(
 
-        x=1.6,
-        y=1.45,
+        x=1.5,
+        y=1.2,
 
         text="Photon Ring",
 
@@ -72,10 +90,12 @@ def create():
 
     )
 
+
     # -----------------------------
     # Legend
     # -----------------------------
 
     renderer.add_legend(fig)
+
 
     return fig
