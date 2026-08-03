@@ -4,72 +4,121 @@ import plotly.graph_objects as go
 
 class BlackHoleRenderer:
 
-    def __init__(self):
+    def __init__(
+        self,
+        mass=10,
+        spin=0.7,
+        charge=0.2,
+        particles=250,
+        speed=5
+    ):
 
-        self.theta = np.linspace(0, 2*np.pi, 500)
+        self.mass = mass
+        self.spin = spin
+        self.charge = charge
+        self.particles = particles
+        self.speed = speed
 
-    # -------------------------------------------------------
-    # Layout
-    # -------------------------------------------------------
+        self.theta = np.linspace(
+            0,
+            2*np.pi,
+            500
+        )
 
-    def create_figure(self, title=""):
+
+    # ======================================
+    # Figure Setup
+    # ======================================
+
+    def create_figure(self, title):
 
         fig = go.Figure()
 
+
         fig.update_layout(
+
+            title=dict(
+                text=title,
+                x=0.5
+            ),
 
             template="plotly_dark",
 
-           paper_bgcolor="#010409",
-           plot_bgcolor="#010409",
+            paper_bgcolor="#010409",
 
-            width=350,
-            height=350,
+            plot_bgcolor="#010409",
+
+
+            width=450,
+
+            height=450,
+
 
             margin=dict(
-                l=5,
-                r=5,
-                t=35,
-                b=5
+                l=10,
+                r=10,
+                t=50,
+                b=10
             ),
 
-            title=title,
 
             xaxis=dict(
                 visible=False,
-                range=[-6, 6]
+                range=[
+                    -6,
+                    6
+                ]
             ),
+
 
             yaxis=dict(
                 visible=False,
-                range=[-6, 6],
+                range=[
+                    -6,
+                    6
+                ],
                 scaleanchor="x"
-            ),
-
-            showlegend=False
+            )
 
         )
 
+
         return fig
 
-    # -------------------------------------------------------
-    # Star Field
-    # -------------------------------------------------------
 
-    def add_starfield(self, fig, n=120):
+
+    # ======================================
+    # Star Field
+    # ======================================
+
+    def add_starfield(
+        self,
+        fig,
+        number=150
+    ):
 
         np.random.seed(42)
 
-        x = np.random.uniform(-6, 6, n)
-        y = np.random.uniform(-6, 6, n)
 
-        sizes = np.random.uniform(1, 3, n)
+        x=np.random.uniform(
+            -6,
+            6,
+            number
+        )
+
+        y=np.random.uniform(
+            -6,
+            6,
+            number
+        )
+
 
         fig.add_trace(
 
             go.Scatter(
 
                 x=x,
+
                 y=y,
 
                 mode="markers",
@@ -78,9 +127,11 @@ class BlackHoleRenderer:
 
                     color="white",
 
-                    size=sizes,
-
-                    opacity=.8
+                    size=np.random.uniform(
+                        1,
+                        3,
+                        number
+                    )
 
                 ),
 
@@ -90,35 +141,42 @@ class BlackHoleRenderer:
 
         )
 
-    # -------------------------------------------------------
+
+
+    # ======================================
     # Event Horizon
-    # -------------------------------------------------------
+    # ======================================
 
-    def add_event_horizon(self, fig):
+    def add_event_horizon(
+        self,
+        fig
+    ):
 
-        x = np.cos(self.theta)
-        y = np.sin(self.theta)
+
+        radius = 1 + (
+            self.mass/100
+        )
+
 
         fig.add_trace(
 
             go.Scatter(
 
-                x=x,
+                x=radius*np.cos(
+                    self.theta
+                ),
 
-                y=y,
+                y=radius*np.sin(
+                    self.theta
+                ),
 
                 fill="toself",
-
-                mode="lines",
 
                 fillcolor="black",
 
                 line=dict(
-
                     color="white",
-
                     width=2
-
                 ),
 
                 hoverinfo="skip"
@@ -127,21 +185,32 @@ class BlackHoleRenderer:
 
         )
 
-    # -------------------------------------------------------
+
+
+    # ======================================
     # Photon Ring
-    # -------------------------------------------------------
+    # ======================================
 
-    def add_photon_ring(self, fig):
+    def add_photon_ring(
+        self,
+        fig
+    ):
 
-        r = 1.35
+
+        radius=1.45
+
 
         fig.add_trace(
 
             go.Scatter(
 
-                x=r*np.cos(self.theta),
+                x=radius*np.cos(
+                    self.theta
+                ),
 
-                y=r*np.sin(self.theta),
+                y=radius*np.sin(
+                    self.theta
+                ),
 
                 mode="lines",
 
@@ -151,30 +220,38 @@ class BlackHoleRenderer:
 
                     width=3
 
-                ),
-
-                hoverinfo="skip"
+                )
 
             )
 
         )
 
-    # -------------------------------------------------------
+
+
+    # ======================================
     # Accretion Disk
-    # -------------------------------------------------------
+    # ======================================
 
-    def add_disk(self, fig):
+    def add_disk(
+        self,
+        fig
+    ):
 
-        a = 3.2
-        b = .8
+
+        radius=3.2
+
 
         fig.add_trace(
 
             go.Scatter(
 
-                x=a*np.cos(self.theta),
+                x=radius*np.cos(
+                    self.theta
+                ),
 
-                y=b*np.sin(self.theta),
+                y=0.7*radius*np.sin(
+                    self.theta
+                ),
 
                 mode="lines",
 
@@ -184,27 +261,38 @@ class BlackHoleRenderer:
 
                     width=5
 
-                ),
-
-                hoverinfo="skip"
+                )
 
             )
 
         )
 
-    # -------------------------------------------------------
-    # Ergosphere
-    # -------------------------------------------------------
 
-    def add_ergosphere(self, fig):
+
+    # ======================================
+    # Ergosphere
+    # ======================================
+
+    def add_ergosphere(
+        self,
+        fig
+    ):
+
+
+        radius=2
+
 
         fig.add_trace(
 
             go.Scatter(
 
-                x=1.8*np.cos(self.theta),
+                x=radius*np.cos(
+                    self.theta
+                ),
 
-                y=1.45*np.sin(self.theta),
+                y=1.4*np.sin(
+                    self.theta
+                ),
 
                 mode="lines",
 
@@ -216,31 +304,47 @@ class BlackHoleRenderer:
 
                     width=2
 
-                ),
-
-                hoverinfo="skip"
+                )
 
             )
 
         )
 
-    # -------------------------------------------------------
+
+
+    # ======================================
     # Electric Field
-    # -------------------------------------------------------
+    # ======================================
 
-    def add_electric_field(self, fig):
+    def add_electric_field(
+        self,
+        fig
+    ):
 
-        angles = np.linspace(0, 2*np.pi, 18)
 
-        for a in angles:
+        angles=np.linspace(
+            0,
+            2*np.pi,
+            20
+        )
+
+
+        for angle in angles:
+
 
             fig.add_trace(
 
                 go.Scatter(
 
-                    x=[1*np.cos(a), 4.3*np.cos(a)],
+                    x=[
+                        np.cos(angle),
+                        4*np.cos(angle)
+                    ],
 
-                    y=[1*np.sin(a), 4.3*np.sin(a)],
+                    y=[
+                        np.sin(angle),
+                        4*np.sin(angle)
+                    ],
 
                     mode="lines",
 
@@ -250,112 +354,120 @@ class BlackHoleRenderer:
 
                         dash="dot"
 
-                    ),
-
-                    hoverinfo="skip"
+                    )
 
                 )
 
             )
 
-    # -------------------------------------------------------
-    # Orbiting Matter
-    # -------------------------------------------------------
 
-    def add_particles(self, fig, number=180):
 
-        angles = np.random.uniform(0, 2*np.pi, number)
+    # ======================================
+    # Particles
+    # ======================================
 
-        radius = np.random.uniform(2.2, 4.8, number)
+    def add_particles(
+        self,
+        fig
+    ):
+
+
+        angles=np.random.uniform(
+            0,
+            2*np.pi,
+            self.particles
+        )
+
+
+        radius=np.random.uniform(
+            2,
+            5,
+            self.particles
+        )
+
 
         fig.add_trace(
 
             go.Scatter(
 
-                x=radius*np.cos(angles),
+                x=radius*np.cos(
+                    angles
+                ),
 
-                y=radius*np.sin(angles),
+                y=radius*np.sin(
+                    angles
+                ),
 
                 mode="markers",
 
                 marker=dict(
 
-                    size=3,
+                    color="white",
 
-                    color="white"
+                    size=3
 
-                ),
-
-                hoverinfo="skip"
+                )
 
             )
 
         )
 
-    # -------------------------------------------------------
+
+
+    # ======================================
     # Legend
-    # -------------------------------------------------------
+    # ======================================
 
     def add_legend(
-
-            self,
-
-            fig,
-
-            ergosphere=False,
-
-            electric=False,
-
-            disk=False
-
+        self,
+        fig,
+        disk=False,
+        ergosphere=False,
+        electric=False
     ):
 
-        text = (
-            "<b>Legend</b><br>"
-            "⚫ Event Horizon<br>"
-            "🟡 Photon Ring<br>"
-            "⚪ Orbiting Matter<br>"
-        )
+
+        text="""
+
+<b>Legend</b><br>
+
+⚫ Event Horizon<br>
+
+🟡 Photon Ring<br>
+
+⚪ Matter Particles<br>
+
+"""
+
 
         if disk:
+
             text += "🔵 Accretion Disk<br>"
 
+
         if ergosphere:
+
             text += "🟠 Ergosphere<br>"
 
+
         if electric:
+
             text += "⚡ Electric Field"
+
 
         fig.add_annotation(
 
-            x=5.8,
+            x=5,
 
-            y=5.7,
+            y=5,
 
-            xref="x",
-
-            yref="y",
-
-            align="left",
+            text=text,
 
             showarrow=False,
 
-            bgcolor="rgba(0,0,0,.65)",
-
-            bordercolor="white",
-
-            borderwidth=1,
-
-            font=dict(
-
-                size=10,
-
-                color="white"
-
-            ),
-
-            text=text
+            bgcolor="rgba(0,0,0,0.6)"
 
         )
+
 
         return fig
