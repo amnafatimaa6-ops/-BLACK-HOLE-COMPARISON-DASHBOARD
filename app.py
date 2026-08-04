@@ -691,3 +691,143 @@ of the Kerr–Newman geometry.
 
 
 
+# ==========================================================
+# Advanced Black Hole Physics Calculator
+# ==========================================================
+
+st.divider()
+
+st.header("🧮 Advanced Black Hole Physics")
+
+# Physical Constants
+G = 6.67430e-11
+c = 299792458
+M_sun = 1.98847e30
+h = 6.62607015e-34
+hbar = h / (2 * np.pi)
+kB = 1.380649e-23
+
+M = mass * M_sun
+
+# Schwarzschild Radius
+Rs = (2 * G * M) / c**2
+
+# Event Horizon
+event_horizon = Rs
+
+# Photon Sphere
+photon_sphere = 1.5 * Rs
+
+# ISCO
+isco = 3 * Rs
+
+# Escape Velocity
+escape_velocity = c
+
+# Surface Gravity
+surface_gravity = c**4 / (4 * G * M)
+
+# Hawking Temperature
+hawking_temperature = (
+    hbar * c**3
+) / (
+    8 * np.pi * G * M * kB
+)
+
+# Light Crossing Time
+light_crossing = Rs / c
+
+# Gravitational Redshift
+redshift = (
+    1 / np.sqrt(1 - Rs / (2 * Rs))
+) - 1
+
+# Horizon Area
+horizon_area = 4 * np.pi * Rs**2
+
+# Average Density
+average_density = (
+    M /
+    ((4/3) * np.pi * Rs**3)
+)
+
+# Bekenstein-Hawking Entropy
+entropy = (
+    kB * horizon_area
+) / (
+    4 * 2.612e-70
+)
+
+row1 = st.columns(4)
+
+with row1[0]:
+    st.metric(
+        "Event Horizon",
+        f"{event_horizon/1000:.2f} km"
+    )
+
+with row1[1]:
+    st.metric(
+        "Photon Sphere",
+        f"{photon_sphere/1000:.2f} km"
+    )
+
+with row1[2]:
+    st.metric(
+        "ISCO Radius",
+        f"{isco/1000:.2f} km"
+    )
+
+with row1[3]:
+    st.metric(
+        "Escape Velocity",
+        f"{escape_velocity/1000:.0f} km/s"
+    )
+
+row2 = st.columns(4)
+
+with row2[0]:
+    st.metric(
+        "Surface Gravity",
+        f"{surface_gravity:.3e} m/s²"
+    )
+
+with row2[1]:
+    st.metric(
+        "Hawking Temperature",
+        f"{hawking_temperature:.3e} K"
+    )
+
+with row2[2]:
+    st.metric(
+        "Light Crossing Time",
+        f"{light_crossing*1000:.3f} ms"
+    )
+
+with row2[3]:
+    st.metric(
+        "Gravitational Redshift",
+        f"{redshift:.3f}"
+    )
+
+row3 = st.columns(3)
+
+with row3[0]:
+    st.metric(
+        "Horizon Area",
+        f"{horizon_area:.3e} m²"
+    )
+
+with row3[1]:
+    st.metric(
+        "Average Density",
+        f"{average_density:.3e} kg/m³"
+    )
+
+with row3[2]:
+    st.metric(
+        "Entropy",
+        f"{entropy:.3e} J/K"
+    )
+
+
