@@ -577,3 +577,117 @@ col3, col4 = st.columns(2)
 
 
 
+
+
+# ==========================================================
+# General Relativity Equations
+# ==========================================================
+
+st.divider()
+
+st.header("📐 General Relativity Equations")
+
+st.markdown("""
+These four exact solutions of Einstein's Field Equations describe different
+types of black holes depending on their physical properties such as
+**mass**, **rotation**, and **electric charge**.
+""")
+
+eq1, eq2 = st.columns(2)
+
+with eq1:
+
+    with st.expander("⚫ Schwarzschild Metric", expanded=False):
+
+        st.latex(r"""
+ds^2=
+-\left(1-\frac{2GM}{rc^2}\right)c^2dt^2
++\left(1-\frac{2GM}{rc^2}\right)^{-1}dr^2
++r^2(d\theta^2+\sin^2\theta\,d\phi^2)
+""")
+
+        st.markdown("""
+The **Schwarzschild solution (1916)** is the simplest exact solution of
+Einstein's General Relativity.
+
+It describes a **non-rotating, electrically neutral black hole** whose
+geometry depends only on its mass.
+
+This solution predicts:
+
+- Event Horizon
+- Photon Sphere
+- Point Singularity
+- Gravitational Time Dilation
+""")
+
+    with st.expander("⚡ Reissner–Nordström Metric", expanded=False):
+
+        st.latex(r"""
+ds^2=
+-\left(
+1-\frac{2GM}{rc^2}
++\frac{Q^2}{r^2}
+\right)dt^2
++
+\left(
+1-\frac{2GM}{rc^2}
++\frac{Q^2}{r^2}
+\right)^{-1}dr^2
++r^2d\Omega^2
+""")
+
+        st.markdown("""
+This solution extends Schwarzschild by introducing **electric charge**.
+
+Although mathematically important, astrophysical black holes are expected
+to carry almost **no net charge** because surrounding plasma rapidly
+neutralises them.
+""")
+
+with eq2:
+
+    with st.expander("🌀 Kerr Metric", expanded=False):
+
+        st.latex(r"""
+\Delta=r^2-2Mr+a^2
+""")
+
+        st.latex(r"""
+\Sigma=r^2+a^2\cos^2\theta
+""")
+
+        st.markdown("""
+The **Kerr solution (1963)** describes rotating black holes.
+
+Rotation twists spacetime itself through **frame dragging**, producing an
+**ergosphere**, where no object can remain stationary relative to distant
+observers.
+""")
+
+    with st.expander("🌌 Kerr–Newman Metric", expanded=False):
+
+        st.latex(r"""
+\Delta=r^2-2Mr+a^2+Q^2
+""")
+
+        st.latex(r"""
+\Sigma=r^2+a^2\cos^2\theta
+""")
+
+        st.markdown("""
+The **Kerr–Newman solution** is the most general stationary black hole
+solution in General Relativity.
+
+It simultaneously possesses:
+
+- Mass
+- Angular Momentum
+- Electric Charge
+
+All other stationary black hole solutions can be regarded as special cases
+of the Kerr–Newman geometry.
+""")
+
+
+
