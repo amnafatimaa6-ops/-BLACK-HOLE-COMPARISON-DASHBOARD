@@ -1005,7 +1005,7 @@ with st.expander("🛰️ Famous Black Holes"):
 
 
 # ==========================================================
-# Interactive Physics Graphs
+# Interactive Physics Explorer
 # ==========================================================
 
 st.divider()
@@ -1013,11 +1013,12 @@ st.divider()
 st.header("📊 Black Hole Physics Explorer")
 
 st.markdown("""
-Explore how important black hole properties change as mass increases.
-The red marker indicates the currently selected mass from the sidebar.
+Explore how important black hole properties vary with mass.
+
+The **red marker** indicates the current mass selected from the sidebar.
 """)
 
-masses = np.linspace(1, 100, 200)
+masses = np.linspace(1, 100, 250)
 
 M_values = masses * M_sun
 
@@ -1033,137 +1034,67 @@ gravity_values = c**4 / (4 * G * M_values)
 
 density_values = (
     M_values /
-    ((4/3) * np.pi * Rs_values**3)
+    ((4 / 3) * np.pi * Rs_values**3)
 )
 
 crossing_values = Rs_values / c
 
+tabs = st.tabs([
+    "Event Horizon",
+    "Temperature",
+    "Gravity",
+    "Density",
+    "Crossing Time"
+])
 
 
-fig = go.Figure()
+with tabs[0]:
 
-fig.add_scatter(
-    x=masses,
-    y=Rs_values / 1000,
-    name="Event Horizon"
-)
+    fig = go.Figure()
 
-fig.add_scatter(
-    x=[mass],
-    y=[Rs / 1000],
-    mode="markers",
-    marker=dict(size=12, color="red"),
-    name="Current"
-)
+    fig.add_trace(
+        go.Scatter(
+            x=masses,
+            y=Rs_values / 1000,
+            name="Event Horizon Radius",
+            line=dict(width=3)
+        )
+    )
 
-fig.update_layout(
-    title="Event Horizon Radius vs Mass",
-    xaxis_title="Mass (Solar Masses)",
-    yaxis_title="Radius (km)",
-    template="plotly_dark"
-)
+    fig.add_trace(
+        go.Scatter(
+            x=[mass],
+            y=[Rs / 1000],
+            mode="markers",
+            marker=dict(
+                size=12,
+                color="red"
+            ),
+            name="Current"
+        )
+    )
 
-st.plotly_chart(fig, use_container_width=True)
+    fig.update_layout(
 
+        template="plotly_dark",
 
+        title="Event Horizon Radius vs Mass",
 
-fig = go.Figure()
+        xaxis_title="Mass (Solar Masses)",
 
-fig.add_scatter(
-    x=masses,
-    y=hawking_values,
-    name="Temperature"
-)
+        yaxis_title="Radius (km)",
 
-fig.add_scatter(
-    x=[mass],
-    y=[hawking_temperature],
-    mode="markers",
-    marker=dict(size=12, color="red")
-)
+        height=500
+    )
 
-fig.update_layout(
-    title="Hawking Temperature vs Mass",
-    xaxis_title="Mass (Solar Masses)",
-    yaxis_title="Temperature (K)",
-    template="plotly_dark"
-)
-
-st.plotly_chart(fig, use_container_width=True)
-
-
-
-fig = go.Figure()
-
-fig.add_scatter(
-    x=masses,
-    y=gravity_values,
-    name="Surface Gravity"
-)
-
-fig.add_scatter(
-    x=[mass],
-    y=[surface_gravity],
-    mode="markers",
-    marker=dict(size=12, color="red")
-)
-
-fig.update_layout(
-    title="Surface Gravity vs Mass",
-    xaxis_title="Mass (Solar Masses)",
-    yaxis_title="m/s²",
-    template="plotly_dark"
-)
-
-st.plotly_chart(fig, use_container_width=True)
-
-
-fig = go.Figure()
-
-fig.add_scatter(
-    x=masses,
-    y=density_values,
-    name="Average Density"
-)
-
-fig.add_scatter(
-    x=[mass],
-    y=[average_density],
-    mode="markers",
-    marker=dict(size=12, color="red")
-)
-
-fig.update_layout(
-    title="Average Density vs Mass",
-    xaxis_title="Mass (Solar Masses)",
-    yaxis_title="kg/m³",
-    template="plotly_dark"
-)
-
-st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        key="graph_event_horizon"
+    )
 
 
 
-fig = go.Figure()
 
-fig.add_scatter(
-    x=masses,
-    y=crossing_values * 1000,
-    name="Crossing Time"
-)
 
-fig.add_scatter(
-    x=[mass],
-    y=[light_crossing * 1000],
-    mode="markers",
-    marker=dict(size=12, color="red")
-)
 
-fig.update_layout(
-    title="Light Crossing Time vs Mass",
-    xaxis_title="Mass (Solar Masses)",
-    yaxis_title="Milliseconds",
-    template="plotly_dark"
-)
-
-st.plotly_chart(fig, use_container_width=True)
