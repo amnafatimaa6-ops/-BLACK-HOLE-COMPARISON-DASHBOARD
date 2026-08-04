@@ -7,6 +7,7 @@ from animations.schwarzschild import create as schwarzschild
 from animations.kerr import create as kerr
 from animations.reissner import create as reissner
 from animations.kerr_newman import create as kerr_newman
+import plotly.graph_objects as go
 
 
 # ==========================================================
