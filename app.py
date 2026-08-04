@@ -1095,7 +1095,147 @@ with tabs[0]:
     )
 
 
+with tabs[1]:
 
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(
+            x=masses,
+            y=hawking_values,
+            name="Hawking Temperature",
+            line=dict(width=3)
+        )
+    )
+
+    fig.add_trace(
+        go.Scatter(
+            x=[mass],
+            y=[hawking_temperature],
+            mode="markers",
+            marker=dict(
+                size=12,
+                color="red"
+            ),
+            name="Current"
+        )
+    )
+
+    fig.update_layout(
+
+        template="plotly_dark",
+
+        title="Hawking Temperature vs Mass",
+
+        xaxis_title="Mass (Solar Masses)",
+
+        yaxis_title="Temperature (K)",
+
+        height=500
+
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        key="temperature_graph"
+    )
+
+
+
+
+
+with tabs[2]:
+
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(
+            x=masses,
+            y=gravity_values,
+            name="Surface Gravity",
+            line=dict(width=3)
+        )
+    )
+
+    fig.add_trace(
+        go.Scatter(
+            x=[mass],
+            y=[surface_gravity],
+            mode="markers",
+            marker=dict(
+                size=12,
+                color="red"
+            ),
+            name="Current"
+        )
+    )
+
+    fig.update_layout(
+
+        template="plotly_dark",
+
+        title="Surface Gravity vs Mass",
+
+        xaxis_title="Mass (Solar Masses)",
+
+        yaxis_title="Surface Gravity (m/s²)",
+
+        height=500
+
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        key="gravity_graph"
+    )
+
+with tabs[3]:
+
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(
+            x=masses,
+            y=density_values,
+            name="Average Density",
+            line=dict(width=3)
+        )
+    )
+
+    fig.add_trace(
+        go.Scatter(
+            x=[mass],
+            y=[average_density],
+            mode="markers",
+            marker=dict(
+                size=12,
+                color="red"
+            ),
+            name="Current"
+        )
+    )
+
+    fig.update_layout(
+
+        template="plotly_dark",
+
+        title="Average Density vs Mass",
+
+        xaxis_title="Mass (Solar Masses)",
+
+        yaxis_title="Density (kg/m³)",
+
+        height=500
+
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        key="density_graph"
+    )
 
 
 
