@@ -1285,4 +1285,74 @@ with tabs[4]:
     )
 
 
+# ==========================================================
+# Physics Insights
+# ==========================================================
+
+st.divider()
+
+st.header("📈 Physics Insights")
+
+with st.expander("🌌 Event Horizon Radius"):
+
+    st.info("""
+As the mass of a black hole increases, its event horizon grows **linearly**.
+
+A black hole with twice the mass has approximately twice the event horizon radius.
+
+This follows directly from the Schwarzschild radius equation:
+
+Rs = 2GM / c²
+""")
+
+# ---------------------------------------------------------
+
+with st.expander("🌡 Hawking Temperature"):
+
+    st.info("""
+Unlike most astronomical objects, larger black holes are actually colder.
+
+The Hawking temperature is inversely proportional to mass:
+
+T ∝ 1 / M
+
+Small black holes emit radiation much more efficiently than
+supermassive black holes.
+""")
+
+# ---------------------------------------------------------
+
+with st.expander("🌍 Surface Gravity"):
+
+    st.info("""
+Surface gravity decreases as mass increases because the event horizon
+moves farther away from the centre.
+
+Despite their enormous mass, supermassive black holes can have weaker
+surface gravity at the horizon than stellar black holes.
+""")
+
+# ---------------------------------------------------------
+
+with st.expander("💫 Average Density"):
+
+    st.info("""
+One surprising prediction of General Relativity is that the average
+density of a black hole decreases as mass increases.
+
+Supermassive black holes can have average densities lower than water,
+even though nothing can escape from inside the event horizon.
+""")
+
+# ---------------------------------------------------------
+
+with st.expander("⏱ Light Crossing Time"):
+
+    st.info("""
+The time required for light to cross the event horizon increases
+linearly with mass.
+
+This provides an intuitive measure of the physical size of a black hole.
+""")
+
 
