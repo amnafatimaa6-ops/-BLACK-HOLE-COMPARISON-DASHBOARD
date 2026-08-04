@@ -1238,4 +1238,51 @@ with tabs[3]:
     )
 
 
+with tabs[4]:
+
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(
+            x=masses,
+            y=crossing_values * 1000,
+            name="Light Crossing Time",
+            line=dict(width=3)
+        )
+    )
+
+    fig.add_trace(
+        go.Scatter(
+            x=[mass],
+            y=[light_crossing * 1000],
+            mode="markers",
+            marker=dict(
+                size=12,
+                color="red"
+            ),
+            name="Current"
+        )
+    )
+
+    fig.update_layout(
+
+        template="plotly_dark",
+
+        title="Light Crossing Time vs Mass",
+
+        xaxis_title="Mass (Solar Masses)",
+
+        yaxis_title="Time (milliseconds)",
+
+        height=500
+
+    )
+
+    st.plotly_chart(
+        fig,
+        use_container_width=True,
+        key="crossing_time_graph"
+    )
+
+
 
