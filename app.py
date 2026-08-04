@@ -576,60 +576,6 @@ st.divider()
 col3, col4 = st.columns(2)
 
 
-# ==========================================================
-# Reissner–Nordström
-# ==========================================================
-
-with col3:
-
-    st.subheader("⚡ Reissner–Nordström Black Hole")
-
-    st.plotly_chart(
-
-        reissner(
-
-            mass=mass,
-
-            charge=charge,
-
-            particles=particles,
-
-            speed=speed
-
-        ),
-
-        use_container_width=True
-
-    )
-
-    st.info(
-
-        blackholes["Reissner-Nordström"]["about"]
-
-    )
-
-    st.markdown("""
-
-### Properties
-
-- Rotation: **No**
-- Charge: **Yes**
-- Event Horizon: **Yes**
-- Ergosphere: **No**
-- Singularity: **Point**
-
-""")
-
-    st.success("""
-
-**Physical Interpretation**
-
-The Reissner–Nordström solution describes a **non-rotating electrically charged**
-black hole. The electric field modifies spacetime and changes the horizon
-structure compared with the Schwarzschild solution.
-
-""")
-
 
 # ==========================================================
 # Kerr–Newman
