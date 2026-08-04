@@ -831,3 +831,174 @@ with row3[2]:
     )
 
 
+# ==========================================================
+# Understanding Black Holes
+# ==========================================================
+
+st.divider()
+
+st.header("🔭 Understanding Black Holes")
+
+st.markdown("""
+Black holes are among the most fascinating predictions of **Einstein's General Relativity**.
+Although invisible, they can be studied through their effects on nearby matter, light,
+and spacetime itself.
+
+Expand the sections below to explore the key physical concepts.
+""")
+
+# ----------------------------------------------------------
+
+with st.expander("⚫ Event Horizon"):
+
+    st.markdown("""
+
+### What is it?
+
+The **event horizon** is the boundary surrounding a black hole beyond which
+nothing—not even light—can escape.
+
+### Key Facts
+
+- Defines the visible size of a black hole.
+- Escape velocity equals the speed of light.
+- It is **not a physical surface**.
+- Crossing the event horizon does not necessarily produce any local physical sensation.
+
+""")
+
+# ----------------------------------------------------------
+
+with st.expander("🟡 Photon Sphere"):
+
+    st.markdown("""
+
+### What is it?
+
+The **photon sphere** is the region where light can orbit the black hole.
+
+### Key Facts
+
+- Located at approximately **1.5 Schwarzschild radii** for a non-rotating black hole.
+- Photon orbits are unstable.
+- Responsible for the bright photon ring observed by the Event Horizon Telescope.
+
+""")
+
+# ----------------------------------------------------------
+
+with st.expander("🌀 Frame Dragging"):
+
+    st.markdown("""
+
+### What is it?
+
+Rotating black holes twist the surrounding spacetime.
+
+This phenomenon is known as **frame dragging** or the **Lense–Thirring effect**.
+
+### Consequences
+
+- Produces an ergosphere.
+- Changes nearby particle orbits.
+- Extracting rotational energy is theoretically possible through the Penrose Process.
+
+""")
+
+# ----------------------------------------------------------
+
+with st.expander("⚡ Electric Charge"):
+
+    st.markdown("""
+
+### Charged Black Holes
+
+The Reissner–Nordström and Kerr–Newman solutions include electric charge.
+
+### In Reality
+
+Astronomers expect real black holes to possess **very little net charge**
+because surrounding plasma quickly neutralises them.
+
+Charged solutions remain extremely important for theoretical physics.
+
+""")
+
+# ----------------------------------------------------------
+
+with st.expander("⭐ Singularity"):
+
+    st.markdown("""
+
+### Point Singularity
+
+Schwarzschild and Reissner–Nordström black holes contain a
+theoretical point singularity.
+
+### Ring Singularity
+
+Kerr and Kerr–Newman black holes contain a rotating ring singularity.
+
+Modern theories of **quantum gravity** are expected to modify
+these classical predictions.
+
+""")
+
+# ----------------------------------------------------------
+
+with st.expander("🌡️ Hawking Radiation"):
+
+    st.markdown("""
+
+In 1974, Stephen Hawking showed that quantum effects allow
+black holes to emit thermal radiation.
+
+This causes black holes to lose mass extremely slowly.
+
+Large astrophysical black holes evaporate so slowly that
+their lifetimes greatly exceed the current age of the Universe.
+
+""")
+
+# ----------------------------------------------------------
+
+with st.expander("📡 Gravitational Waves"):
+
+    st.markdown("""
+
+When black holes merge they generate ripples in spacetime
+known as **gravitational waves**.
+
+These waves were first directly detected by **LIGO** in 2015,
+providing one of the greatest confirmations of General Relativity.
+
+""")
+
+# ----------------------------------------------------------
+
+with st.expander("🛰️ Famous Black Holes"):
+
+    st.table({
+
+        "Object":[
+            "Sagittarius A*",
+            "M87*",
+            "Cygnus X-1",
+            "GW150914"
+        ],
+
+        "Type":[
+            "Supermassive",
+            "Supermassive",
+            "Stellar",
+            "Merger Event"
+        ],
+
+        "Approximate Mass":[
+            "4.3 Million M☉",
+            "6.5 Billion M☉",
+            "21 M☉",
+            "66 M☉ (final)"
+        ]
+
+    })
